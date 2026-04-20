@@ -313,9 +313,12 @@
   });
 
   document.getElementById("btn-reset-season").addEventListener("click", function () {
-    showModal("Reset all season totals? This cannot be undone.", true, function () {
+    showModal("Reset all season totals and current game times? This cannot be undone.", true, function () {
       players.forEach(function (p) {
         p.seasonTotalSeconds = 0;
+        p.currentGameSeconds = 0;
+        p.isRunning = false;
+        p.startedAt = null;
       });
       save();
       renderSeasonTotals();
