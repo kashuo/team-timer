@@ -325,7 +325,7 @@
   function renderSeasonTotals() {
     seasonListEl.innerHTML = "";
     var sorted = players.slice().sort(function (a, b) {
-      return (b.seasonTotalSeconds + getElapsed(b)) - (a.seasonTotalSeconds + getElapsed(a));
+      return (a.seasonTotalSeconds + getElapsed(a)) - (b.seasonTotalSeconds + getElapsed(b));
     });
 
     if (sorted.length === 0) {
