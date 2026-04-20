@@ -17,8 +17,12 @@
   <!-- Game Timer View -->
   <div id="game-view" class="view active">
     <div class="header">
-      <h1>Team Timer <span style="font-size:12px;font-weight:400;color:#999;">v1.5</span></h1>
+      <div class="header-left">
+        <h1>Team Timer <span style="font-size:12px;font-weight:400;color:#999;">v2.0</span></h1>
+        <button class="team-picker-btn" id="btn-team-picker">▼ <span id="team-name-label">Team</span></button>
+      </div>
       <div class="header-actions">
+        <button class="header-btn" id="btn-stop-all">Stop All</button>
         <button class="header-btn" id="btn-new-game">New Game</button>
         <button class="header-btn" id="btn-season">Season</button>
       </div>
@@ -34,6 +38,16 @@
       <button class="header-btn" id="btn-reset-season" style="font-size:12px;">Reset</button>
     </div>
     <div class="player-list" id="season-list"></div>
+  </div>
+
+  <!-- Team Picker View -->
+  <div id="team-picker-view" class="view">
+    <div class="header">
+      <button class="header-back" id="btn-team-picker-back">&larr; Back</button>
+      <h1>Teams</h1>
+      <div></div>
+    </div>
+    <div class="player-list" id="team-list"></div>
   </div>
 
   <!-- Confirmation Modal -->
