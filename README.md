@@ -1,6 +1,6 @@
 # Team Timer
 
-A simple app for soccer coaches to track player playing time during games. Built as a Progressive Web App — install it on your iPhone home screen and use it like a native app.
+A simple app for soccer coaches to track player playing time during games. Built as a Progressive Web App — install it on your phone's home screen and use it like a native app.
 
 ## Features
 
@@ -14,10 +14,17 @@ A simple app for soccer coaches to track player playing time during games. Built
 
 ## Install on iPhone
 
-1. Open [kashuo.github.io/team-timer](https://kashuo.github.io/team-timer/) in Safari
-2. Tap the Share button (square with arrow)
-3. Tap "Add to Home Screen"
-4. Tap Add
+1. Open [kashuo.github.io/team-timer](https://kashuo.github.io/team-timer/) in **Safari**
+2. Tap the **Share** button (square with arrow)
+3. Tap **"Add to Home Screen"**
+4. Tap **Add**
+
+## Install on Android
+
+1. Open [kashuo.github.io/team-timer](https://kashuo.github.io/team-timer/) in **Chrome**
+2. Tap the **three-dot menu** (top right)
+3. Tap **"Add to Home screen"** or **"Install app"**
+4. Tap **Add**
 
 ## Local Development
 
