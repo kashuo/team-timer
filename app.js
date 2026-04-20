@@ -100,7 +100,10 @@
 
   function renderPlayers() {
     playerListEl.innerHTML = "";
-    players.forEach(function (player) {
+    var sorted = players.slice().sort(function (a, b) {
+      return getElapsed(a) - getElapsed(b);
+    });
+    sorted.forEach(function (player) {
       var row = document.createElement("div");
       row.className = "player-row";
       row.setAttribute("data-id", player.id);
@@ -137,6 +140,15 @@
       row.appendChild(toggleBtn);
       playerListEl.appendChild(row);
     });
+
+    var addRow = document.createElement("div");
+    addRow.className = "add-player-row";
+    var addBtn = document.createElement("button");
+    addBtn.className = "btn-add";
+    addBtn.textContent = "+ Add Player";
+    addBtn.addEventListener("click", addPlayer);
+    addRow.appendChild(addBtn);
+    playerListEl.appendChild(addRow);
   }
 
   function updateTimerDisplays() {
@@ -327,10 +339,6 @@
       seasonListEl.appendChild(row);
     });
   }
-
-  // --- Add player button ---
-
-  document.getElementById("btn-add-player").addEventListener("click", addPlayer);
 
   // --- Timer tick ---
 
