@@ -151,12 +151,26 @@
     playerListEl.appendChild(addRow);
   }
 
+  function getSortedIds() {
+    return players.slice().sort(function (a, b) {
+      return getElapsed(a) - getElapsed(b);
+    }).map(function (p) { return p.id; });
+  }
+
+  var lastOrder = [];
+
   function updateTimerDisplays() {
     players.forEach(function (player) {
       if (!player.isRunning) return;
       var el = playerListEl.querySelector('[data-timer="' + player.id + '"]');
       if (el) el.textContent = formatTime(getElapsed(player));
     });
+
+    var currentOrder = getSortedIds();
+    if (currentOrder.join(",") !== lastOrder.join(",")) {
+      lastOrder = currentOrder;
+      renderPlayers();
+    }
   }
 
   // --- Player CRUD ---
@@ -365,5 +379,6 @@
 
   load();
   renderPlayers();
+  lastOrder = getSortedIds();
   startTick();
 })();
