@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <title>Team Timer</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Team Timer">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Game Timer View -->
+  <div id="game-view" class="view active">
+    <div class="header">
+      <h1>Team Timer</h1>
+      <div class="header-actions">
+        <button class="header-btn" id="btn-new-game">New Game</button>
+        <button class="header-btn" id="btn-season">Season</button>
+      </div>
+    </div>
+    <div class="player-list" id="player-list"></div>
+    <div class="add-player-area">
+      <button class="btn-add" id="btn-add-player">+ Add Player</button>
+    </div>
+  </div>
+
+  <!-- Season Totals View -->
+  <div id="season-view" class="view">
+    <div class="header">
+      <button class="header-back" id="btn-back">&larr; Back</button>
+      <h1>Season Totals</h1>
+      <button class="header-btn" id="btn-reset-season" style="font-size:12px;">Reset</button>
+    </div>
+    <div class="player-list" id="season-list"></div>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <p id="modal-message"></p>
+      <div class="modal-actions">
+        <button class="modal-cancel" id="modal-cancel">Cancel</button>
+        <button class="modal-confirm" id="modal-confirm">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
