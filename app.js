@@ -5,6 +5,7 @@
   var activeTeamId = null;
   var nextId = 1;
   var timerInterval = null;
+  var selectedPlayerIds = {};
 
   var playerListEl = document.getElementById("player-list");
   var seasonListEl = document.getElementById("season-list");
@@ -151,10 +152,21 @@
     var sorted = players.slice().sort(function (a, b) {
       return getElapsed(a) - getElapsed(b);
     });
+    var validIds = {};
     sorted.forEach(function (player) {
+      validIds[player.id] = true;
+
       var row = document.createElement("div");
-      row.className = "player-row";
+      row.className = "player-row" + (selectedPlayerIds[player.id] ? " selected" : "");
       row.setAttribute("data-id", player.id);
+
+      var checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.className = "player-checkbox";
+      checkbox.checked = !!selectedPlayerIds[player.id];
+      checkbox.addEventListener("change", function () {
+        togglePlayerSelection(player.id);
+      });
 
       var nameSpan = document.createElement("span");
       nameSpan.className = "player-name";
@@ -182,11 +194,16 @@
         deletePlayer(player.id);
       });
 
+      row.appendChild(checkbox);
       row.appendChild(deleteBtn);
       row.appendChild(nameSpan);
       row.appendChild(timeSpan);
       row.appendChild(toggleBtn);
       playerListEl.appendChild(row);
+    });
+
+    Object.keys(selectedPlayerIds).forEach(function (id) {
+      if (!validIds[parseInt(id, 10)]) delete selectedPlayerIds[id];
     });
 
     var addRow = document.createElement("div");
@@ -199,6 +216,7 @@
     playerListEl.appendChild(addRow);
 
     updateTeamLabel();
+    updateSwitchButton();
   }
 
   function getSortedIds() {
@@ -338,6 +356,63 @@
     renderPlayers();
   }
 
+  // --- Selection & Switch ---
+
+  function togglePlayerSelection(id) {
+    if (selectedPlayerIds[id]) {
+      delete selectedPlayerIds[id];
+    } else {
+      selectedPlayerIds[id] = true;
+    }
+    updateSwitchButton();
+    var row = playerListEl.querySelector('[data-id="' + id + '"]');
+    if (row) {
+      if (selectedPlayerIds[id]) {
+        row.classList.add("selected");
+      } else {
+        row.classList.remove("selected");
+      }
+    }
+  }
+
+  function updateSwitchButton() {
+    var btn = document.getElementById("btn-switch-selected");
+    var count = Object.keys(selectedPlayerIds).length;
+    if (count > 0) {
+      btn.textContent = "Switch (" + count + ")";
+      btn.disabled = false;
+    } else {
+      btn.textContent = "Switch";
+      btn.disabled = true;
+    }
+  }
+
+  document.getElementById("btn-switch-selected").addEventListener("click", function () {
+    var players = getPlayers();
+    var now = Date.now();
+    var ids = Object.keys(selectedPlayerIds);
+    if (ids.length === 0) return;
+
+    ids.forEach(function (idStr) {
+      var id = parseInt(idStr, 10);
+      var player = players.find(function (p) { return p.id === id; });
+      if (!player) return;
+
+      if (player.isRunning) {
+        player.currentGameSeconds += (now - player.startedAt) / 1000;
+        player.isRunning = false;
+        player.startedAt = null;
+      } else {
+        player.isRunning = true;
+        player.startedAt = now;
+      }
+    });
+
+    selectedPlayerIds = {};
+    save();
+    renderPlayers();
+  });
+
   // --- Stop All ---
 
   document.getElementById("btn-stop-all").addEventListener("click", function () {
@@ -361,6 +436,7 @@
 
   document.getElementById("btn-new-game").addEventListener("click", function () {
     showModal("Start new game? Current times will be saved to season totals.", false, function () {
+      selectedPlayerIds = {};
       getPlayers().forEach(function (p) {
         p.seasonTotalSeconds += getElapsed(p);
         p.currentGameSeconds = 0;
@@ -493,6 +569,7 @@
   }
 
   function switchTeam(id) {
+    selectedPlayerIds = {};
     activeTeamId = id;
     save();
     renderPlayers();
