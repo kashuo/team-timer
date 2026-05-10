@@ -189,6 +189,35 @@ body {
   color: #000;
 }
 
+.player-checkbox {
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  cursor: pointer;
+  touch-action: manipulation;
+  accent-color: #3B82F6;
+  flex-shrink: 0;
+}
+
+.player-row.selected {
+  background: #EFF6FF;
+}
+
+.switch-btn:disabled {
+  opacity: 0.35;
+}
+
+.switch-btn:not(:disabled) {
+  background: #3B82F6;
+  color: #fff;
+  border-color: #3B82F6;
+}
+
+.switch-btn:not(:disabled):active {
+  background: #2563EB;
+  border-color: #2563EB;
+}
+
 .btn-ok {
   font-size: 16px;
   font-weight: 700;

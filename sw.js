@@ -1,4 +1,4 @@
-var CACHE_NAME = "teamtimer-v3";
+var CACHE_NAME = "teamtimer-v4";
 var ASSETS = [
   ".",
   "index.html",
